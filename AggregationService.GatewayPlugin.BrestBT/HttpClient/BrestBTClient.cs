@@ -1,4 +1,5 @@
-﻿using AggregationService.GatewayPlugin.BrestBT.Configuration;
+﻿using System.Threading.Tasks;
+using AggregationService.GatewayPlugin.BrestBT.Configuration;
 using AggregationService.GatewayPlugin.BrestBT.Exceptions;
 using AggregationService.GatewayPlugin.BrestBT.HttpClient.RequestModel;
 using AggregationService.GatewayPlugin.BrestBT.HttpClient.ResponseModel;
@@ -11,15 +12,15 @@ namespace AggregationService.GatewayPlugin.BrestBT.HttpClient
 
         public BrestBTClient(IRestClient restClient)
         {
-            _restClient = restClient
+            _restClient = restClient;
         }
 
-        public BrestBTResponse GetTicketBooking(UserBookingOptions bookingOptions, IBrestGatewayConfiguration brestGatewayConfiguration)
+        public async Task<BrestBTResponse> GetTicketBooking(UserBookingOptions bookingOptions, IBrestGatewayConfiguration brestGatewayConfiguration)
         {
             var request = CreateApiRequest(bookingOptions);
-            var сlient = _restClient.GetRestClient(brestGatewayConfiguration.ApiEndpoint);
+            var client = _restClient.GetRestSharpClient(brestGatewayConfiguration.ApiEndpoint);
 
-            var response = сlient.GetResponse<BrestBTResponse>(request);
+            var response = await client.GetResponseAsync<BrestBTResponse>(request);
             if (!IsResponseSuccessful(response))
             {
                 throw new BrestBTApiException(brestGatewayConfiguration.Username, response.ErrorStatus.Error);
@@ -36,7 +37,7 @@ namespace AggregationService.GatewayPlugin.BrestBT.HttpClient
             };
         }
 
-        private bool IsResponseSuccessful(BrestBTResponse response)
+        private static bool IsResponseSuccessful(BrestBTResponse response)
         {
             return !string.IsNullOrEmpty(response.ErrorStatus.ErrorDescription);
         }

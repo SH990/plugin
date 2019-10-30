@@ -15,6 +15,6 @@ namespace AggregationService.GatewayPlugin.BrestBT.Registration
                 Component.For<IRestClient>()
                     .ImplementedBy<RestClient>()
                     .LifestyleTransient());
-        };
+        }
     }
 }

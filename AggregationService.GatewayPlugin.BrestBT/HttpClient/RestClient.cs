@@ -4,7 +4,7 @@ namespace AggregationService.GatewayPlugin.BrestBT.HttpClient
 {
     public class RestClient : IRestClient
     {
-        public IRestSharpClient GetRestClient(Uri apiUrl)
+        public IRestSharpClient GetRestSharpClient(Uri apiUrl)
         {
             return new RestSharpClient(apiUrl);
         }

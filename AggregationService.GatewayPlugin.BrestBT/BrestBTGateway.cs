@@ -17,12 +17,12 @@ namespace AggregationService.GatewayPlugin.BrestBT
             _configurationProvider = configurationProvider;
         }
 
-        public ovveride async Task<TicketBooking> BookTicket(UserBookingOptions userBookingOptions)
+        public override async Task<TicketBooking> BookTicket(UserBookingOptions userBookingOptions)
         {
-            var userConfiguraion =
+            var userConfiguration =
                 _configurationProvider.GetApiConfiguration<IBrestGatewayConfiguration>(userBookingOptions.UserId);
 
-            var ticketBooking = _brestBTClient.GetTicketBooking(userBookingOptions, userConfiguraion);
+            var ticketBooking = await _brestBTClient.GetTicketBooking(userBookingOptions, userConfiguration);
 
             return new TicketBooking
             {

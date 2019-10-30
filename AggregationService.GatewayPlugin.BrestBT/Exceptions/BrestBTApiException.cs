@@ -6,10 +6,12 @@ namespace AggregationService.GatewayPlugin.BrestBT.Exceptions
     [Serializable]
     public class BrestBTApiException : Exception
     {
-        public BrestBTApiException(string UserName, string errorCode, string errorDescription)
-            : base($"Ticket booking for user {UserName} was failed with error description: {errorDescription}");
+        public BrestBTApiException(string userName, string errorDescription)
+            : base($"Ticket booking for user {userName} was failed with error description: {errorDescription}")
+        {}
 
         protected BrestBTApiException(SerializationInfo info, StreamingContext context)
-            : base(info, context);
+            : base(info, context)
+        {}
     }
 }

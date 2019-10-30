@@ -12,9 +12,13 @@ namespace AggregationService.GatewayPlugin.BrestBT.Registration
                     .ImplementedBy<BrestBTClient>()
                     .LifestyleSingleton(),
 
-                Component.For<IRestClient>()
-                    .ImplementedBy<RestClient>()
+                Component.For<IHttpClientFactory>()
+                    .ImplementedBy<HttpClientFactory>()
                     .LifestyleTransient());
+
+                Component.For<IHttpClient>()
+                .ImplementedBy<RestSharpHttpClient>()
+                .LifestyleTransient());
         }
     }
 }

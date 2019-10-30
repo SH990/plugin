@@ -46,8 +46,10 @@
     <Compile Include="Configuration\IBrestGatewayConfiguration.cs" />
     <Compile Include="Exceptions\BrestBTApiException.cs" />
     <Compile Include="HttpClient\BrestBTClient.cs" />
-    <Compile Include="HttpClient\IRestClient.cs" />
-    <Compile Include="HttpClient\RestClient.cs" />
+    <Compile Include="HttpClient\HttpClientFactory.cs" />
+    <Compile Include="HttpClient\IHttpClient.cs" />
+    <Compile Include="HttpClient\IHttpClientFactory.cs" />
+    <Compile Include="HttpClient\RestSharpHttpClient.cs" />
     <Compile Include="HttpClient\IBrestBTClient.cs" />
     <Compile Include="HttpClient\RequestModel\BrestBTRequest.cs" />
     <Compile Include="HttpClient\ResponseModel\BrestBTResponse.cs" />

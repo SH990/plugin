@@ -8,19 +8,19 @@ namespace AggregationService.GatewayPlugin.BrestBT.HttpClient
 {
     public class BrestBTClient : IBrestBTClient
     {
-        private readonly IRestClient client;
+        private readonly IHttpClientFactory _clientFactory;
 
-        public BrestBTClient(IRestClient restClient)
+        public BrestBTClient(IHttpClientFactory clientFactory)
         {
-            client = restClient;
+            _clientFactory = clientFactory;
         }
 
         public async Task<BrestBTResponse> GetTicketBooking(UserBookingOptions bookingOptions, IBrestGatewayConfiguration brestGatewayConfiguration)
         {
             var request = CreateApiRequest(bookingOptions);
-            var restSharpClient = client.GetRestSharpClient(brestGatewayConfiguration.ApiEndpoint);
+            var restSharpClient = _clientFactory.Create(brestGatewayConfiguration.ApiEndpoint);
 
-            var response = await restSharpClient.GetResponseAsync<BrestBTResponse>(request);
+            var response = await restSharpClient.GetResponse<BrestBTRequest>(request);
             if (!IsResponseSuccessful(response))
             {
                 throw new BrestBTApiException(brestGatewayConfiguration.Username, response.ErrorStatus.Error);
